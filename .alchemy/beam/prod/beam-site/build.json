@@ -1,0 +1,32 @@
+{
+  "kind": "os::Exec",
+  "id": "build",
+  "fqn": "beam/prod/beam-site/build",
+  "seq": 1,
+  "data": {},
+  "status": "created",
+  "output": {
+    "Symbol(alchemy::ResourceKind)": "os::Exec",
+    "Symbol(alchemy::ResourceID)": "build",
+    "Symbol(alchemy::ResourceFQN)": "beam/prod/beam-site/build",
+    "Symbol(alchemy::ResourceScope)": {
+      "@scope": null
+    },
+    "Symbol(alchemy::ResourceSeq)": 1,
+    "id": "build",
+    "command": "bun run build",
+    "cwd": "/Users/preston/dev/beam",
+    "env": {},
+    "inheritStdio": true,
+    "exitCode": 0,
+    "stdout": "",
+    "stderr": "",
+    "executedAt": 1753115730993,
+    "completed": true
+  },
+  "props": {
+    "cwd": "/Users/preston/dev/beam",
+    "command": "bun run build",
+    "env": {}
+  }
+}

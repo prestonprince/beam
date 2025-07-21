@@ -1,0 +1,19 @@
+{
+  "kind": "alchemy::Scope",
+  "id": "beam-site",
+  "seq": 1,
+  "data": {},
+  "fqn": "",
+  "props": {},
+  "status": "created",
+  "output": {
+    "Symbol(alchemy::ResourceID)": "beam-site",
+    "Symbol(alchemy::ResourceFQN)": "",
+    "Symbol(alchemy::ResourceKind)": "alchemy::Scope",
+    "Symbol(alchemy::ResourceScope)": {
+      "@scope": null
+    },
+    "Symbol(alchemy::ResourceSeq)": 1,
+    "Symbol(alchemy::DestroyStrategy)": "sequential"
+  }
+}

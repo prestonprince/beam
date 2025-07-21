@@ -1,0 +1,253 @@
+{
+  "kind": "cloudflare::Worker",
+  "id": "worker",
+  "fqn": "beam/prod/beam-site/worker",
+  "seq": 3,
+  "data": {},
+  "status": "created",
+  "output": {
+    "Symbol(alchemy::ResourceKind)": "cloudflare::Worker",
+    "Symbol(alchemy::ResourceID)": "worker",
+    "Symbol(alchemy::ResourceFQN)": "beam/prod/beam-site/worker",
+    "Symbol(alchemy::ResourceScope)": {
+      "@scope": null
+    },
+    "Symbol(alchemy::ResourceSeq)": 3,
+    "adopt": true,
+    "name": "beam-site",
+    "command": "bun run build",
+    "main": "./worker/web/index.ts",
+    "assets": {
+      "html_handling": "auto-trailing-slash",
+      "not_found_handling": "single-page-application",
+      "run_worker_first": false,
+      "dist": "dist/client"
+    },
+    "domains": [
+      {
+        "Symbol(alchemy::ResourceKind)": "cloudflare::CustomDomain",
+        "Symbol(alchemy::ResourceID)": "beamsync.app",
+        "Symbol(alchemy::ResourceFQN)": "beam/prod/beam-site/worker/beamsync.app",
+        "Symbol(alchemy::ResourceScope)": {
+          "@scope": null
+        },
+        "Symbol(alchemy::ResourceSeq)": 0,
+        "workerName": "beam-site",
+        "name": "beamsync.app",
+        "zoneId": "990c991a020dc56252dd4d89fea223db",
+        "adopt": true,
+        "accountId": "0ffb4050e26911f10fc8b353c416626b",
+        "baseUrl": "https://api.cloudflare.com/client/v4",
+        "type": "api-token",
+        "apiToken": {
+          "@secret": "VZMb8ToWAVbAYBX3bskbElK17QVHPSwi31eo6PiM+K/x33ZXrVNSQgsvjlfSr0EmbBHXlv3MLuVa2qI4OgsvGjbK2vi+PCvzdPOGObx3vno="
+        },
+        "id": "7e9bdccffc404bd06e67edd6c52a4aaf575866fa",
+        "environment": "production",
+        "createdAt": 1753115742517,
+        "updatedAt": 1753115742517
+      }
+    ],
+    "spa": true,
+    "dev": {
+      "command": "bun vite dev"
+    },
+    "compatibilityDate": "2025-07-19",
+    "entrypoint": "/Users/preston/dev/beam/worker/web/index.ts",
+    "bindings": {
+      "ASSETS": {
+        "Symbol(alchemy::ResourceKind)": "cloudflare::Asset",
+        "Symbol(alchemy::ResourceID)": "assets",
+        "Symbol(alchemy::ResourceFQN)": "beam/prod/beam-site/assets",
+        "Symbol(alchemy::ResourceScope)": {
+          "@scope": null
+        },
+        "Symbol(alchemy::ResourceSeq)": 2,
+        "id": "assets",
+        "type": "assets",
+        "path": "dist/client",
+        "files": [
+          {
+            "path": "favicon.ico",
+            "filePath": "dist/client/favicon.ico",
+            "contentType": "image/x-icon"
+          },
+          {
+            "path": "index.html",
+            "filePath": "dist/client/index.html",
+            "contentType": "text/html"
+          },
+          {
+            "path": ".DS_Store",
+            "filePath": "dist/client/.DS_Store",
+            "contentType": "application/null"
+          },
+          {
+            "path": "beam.png",
+            "filePath": "dist/client/beam.png",
+            "contentType": "image/png"
+          },
+          {
+            "path": "logo512.png",
+            "filePath": "dist/client/logo512.png",
+            "contentType": "image/png"
+          },
+          {
+            "path": "beam2.jpg",
+            "filePath": "dist/client/beam2.jpg",
+            "contentType": "image/jpeg"
+          },
+          {
+            "path": "manifest.json",
+            "filePath": "dist/client/manifest.json",
+            "contentType": "application/json"
+          },
+          {
+            "path": "robots.txt",
+            "filePath": "dist/client/robots.txt",
+            "contentType": "text/plain"
+          },
+          {
+            "path": "logo192.png",
+            "filePath": "dist/client/logo192.png",
+            "contentType": "image/png"
+          },
+          {
+            "path": "assets/index-CwTh1DeW.js",
+            "filePath": "dist/client/assets/index-CwTh1DeW.js",
+            "contentType": "application/javascript"
+          },
+          {
+            "path": "assets/index-D-TVPqJW.css",
+            "filePath": "dist/client/assets/index-D-TVPqJW.css",
+            "contentType": "text/css"
+          },
+          {
+            "path": "assets/login-Dr0sSk1A.js",
+            "filePath": "dist/client/assets/login-Dr0sSk1A.js",
+            "contentType": "application/javascript"
+          },
+          {
+            "path": "assets/index-rGyZvgNM.js",
+            "filePath": "dist/client/assets/index-rGyZvgNM.js",
+            "contentType": "application/javascript"
+          }
+        ],
+        "createdAt": 1753115730994,
+        "updatedAt": 1753115730994
+      }
+    },
+    "type": "service",
+    "id": "worker",
+    "compatibilityFlags": [],
+    "format": "esm",
+    "createdAt": 1753115742521,
+    "updatedAt": 1753115742521
+  },
+  "props": {
+    "adopt": true,
+    "url": false,
+    "name": "beam-site",
+    "command": "bun run build",
+    "main": "./worker/web/index.ts",
+    "assets": {
+      "html_handling": "auto-trailing-slash",
+      "not_found_handling": "single-page-application",
+      "run_worker_first": false,
+      "dist": "dist/client"
+    },
+    "domains": [
+      "beamsync.app"
+    ],
+    "spa": true,
+    "dev": {
+      "command": "bun vite dev"
+    },
+    "compatibilityDate": "2025-07-19",
+    "cwd": "",
+    "entrypoint": "/Users/preston/dev/beam/worker/web/index.ts",
+    "bindings": {
+      "ASSETS": {
+        "Symbol(alchemy::ResourceKind)": "cloudflare::Asset",
+        "Symbol(alchemy::ResourceID)": "assets",
+        "Symbol(alchemy::ResourceFQN)": "beam/prod/beam-site/assets",
+        "Symbol(alchemy::ResourceScope)": {
+          "@scope": null
+        },
+        "Symbol(alchemy::ResourceSeq)": 2,
+        "id": "assets",
+        "type": "assets",
+        "path": "dist/client",
+        "files": [
+          {
+            "path": "favicon.ico",
+            "filePath": "dist/client/favicon.ico",
+            "contentType": "image/x-icon"
+          },
+          {
+            "path": "index.html",
+            "filePath": "dist/client/index.html",
+            "contentType": "text/html"
+          },
+          {
+            "path": ".DS_Store",
+            "filePath": "dist/client/.DS_Store",
+            "contentType": "application/null"
+          },
+          {
+            "path": "beam.png",
+            "filePath": "dist/client/beam.png",
+            "contentType": "image/png"
+          },
+          {
+            "path": "logo512.png",
+            "filePath": "dist/client/logo512.png",
+            "contentType": "image/png"
+          },
+          {
+            "path": "beam2.jpg",
+            "filePath": "dist/client/beam2.jpg",
+            "contentType": "image/jpeg"
+          },
+          {
+            "path": "manifest.json",
+            "filePath": "dist/client/manifest.json",
+            "contentType": "application/json"
+          },
+          {
+            "path": "robots.txt",
+            "filePath": "dist/client/robots.txt",
+            "contentType": "text/plain"
+          },
+          {
+            "path": "logo192.png",
+            "filePath": "dist/client/logo192.png",
+            "contentType": "image/png"
+          },
+          {
+            "path": "assets/index-CwTh1DeW.js",
+            "filePath": "dist/client/assets/index-CwTh1DeW.js",
+            "contentType": "application/javascript"
+          },
+          {
+            "path": "assets/index-D-TVPqJW.css",
+            "filePath": "dist/client/assets/index-D-TVPqJW.css",
+            "contentType": "text/css"
+          },
+          {
+            "path": "assets/login-Dr0sSk1A.js",
+            "filePath": "dist/client/assets/login-Dr0sSk1A.js",
+            "contentType": "application/javascript"
+          },
+          {
+            "path": "assets/index-rGyZvgNM.js",
+            "filePath": "dist/client/assets/index-rGyZvgNM.js",
+            "contentType": "application/javascript"
+          }
+        ],
+        "createdAt": 1753115730994,
+        "updatedAt": 1753115730994
+      }
+    }
+  }
+}
