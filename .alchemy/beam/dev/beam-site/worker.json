@@ -4,7 +4,7 @@
   "fqn": "beam/dev/beam-site/worker",
   "seq": 1,
   "data": {},
-  "status": "created",
+  "status": "updated",
   "output": {
     "Symbol(alchemy::ResourceKind)": "cloudflare::Worker",
     "Symbol(alchemy::ResourceID)": "worker",
@@ -22,7 +22,7 @@
     "format": "esm",
     "bindings": {},
     "createdAt": 1753114676435,
-    "updatedAt": 1753114676435,
+    "updatedAt": 1753218030604,
     "url": "http://localhost:5173/",
     "dev": {
       "command": "bun vite dev"

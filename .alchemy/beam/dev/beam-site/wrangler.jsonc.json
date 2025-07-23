@@ -4,7 +4,7 @@
   "fqn": "beam/dev/beam-site/wrangler.jsonc",
   "seq": 0,
   "data": {},
-  "status": "created",
+  "status": "updated",
   "output": {
     "Symbol(alchemy::ResourceKind)": "cloudflare::WranglerJson",
     "Symbol(alchemy::ResourceID)": "wrangler.jsonc",
@@ -51,8 +51,8 @@
         "binding": "ASSETS"
       }
     },
-    "createdAt": 1753114675648,
-    "updatedAt": 1753114675648
+    "createdAt": 1753218029800,
+    "updatedAt": 1753218029800
   },
   "props": {
     "path": "wrangler.jsonc",
