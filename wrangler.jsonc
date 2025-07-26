@@ -1,6 +1,0 @@
-{
-  "name": "beam-site",
-  "main": "worker/web/index.ts",
-  "compatibility_date": "2025-07-19",
-  "assets": { "directory": "dist/client", "binding": "ASSETS" }
-}

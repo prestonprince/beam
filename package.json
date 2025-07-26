@@ -3,9 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun run alchemy dev --stage dev",
-    "deploy:prod": "bun run alchemy deploy --stage prod",
-    "destroy:prod": "bun run alchemy destroy --stage prod",
+    "dev": "vite --port 8787",
     "start": "vite --port 3000",
     "build": "vite build && tsc",
     "serve": "vite preview",
@@ -21,7 +19,6 @@
     "@tanstack/react-router-devtools": "^1.121.2",
     "@tanstack/router-plugin": "^1.121.2",
     "@types/bun": "^1.2.19",
-    "alchemy": "^0.49.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "hono": "^4.8.5",
@@ -30,7 +27,8 @@
     "react-dom": "^19.0.0",
     "tailwind-merge": "^3.0.2",
     "tailwindcss": "^4.0.6",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "zod": "^4.0.10"
   },
   "devDependencies": {
     "@testing-library/dom": "^10.4.0",

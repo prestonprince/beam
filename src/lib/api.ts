@@ -1,7 +1,7 @@
-import type { AppRouter } from "worker/api";
+import type { AppRouter } from "worker";
 import { hc } from "hono/client";
 
-const client = hc<AppRouter>("http://localhost:1337");
+const client = hc<AppRouter>("http://localhost:8787");
 
 export async function getHealth() {
   const res = await client.api.health.$get();
