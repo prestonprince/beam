@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { createFileRoute } from "@tanstack/react-router";
+import { client } from "@/lib/api";
 
 const loginSearchSchema = z.object({
   state: z.string(),
@@ -9,8 +10,13 @@ const loginSearchSchema = z.object({
 export const Route = createFileRoute("/loginSuccess")({
   component: RouteComponent,
   validateSearch: loginSearchSchema,
-  beforeLoad: () => {
-    // TODO: add logic to parse state and send code to backend
+  beforeLoad: async ({ search }) => {
+    await client.api.oauth.access_token.$post({
+      json: {
+        code: search.code,
+      },
+    });
+    // TODO: on success, redirect to authenticated dashboard
   },
 });
 

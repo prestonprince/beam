@@ -8,3 +8,6 @@ count.txt
 .nitro
 .tanstack
 .alchemy
+
+.dev.vars
+.wrangler
