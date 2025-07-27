@@ -11,11 +11,6 @@ export const Route = createFileRoute("/loginSuccess")({
   component: RouteComponent,
   validateSearch: loginSearchSchema,
   beforeLoad: async ({ search }) => {
-    await client.api.oauth.access_token.$post({
-      json: {
-        code: search.code,
-      },
-    });
     // TODO: on success, redirect to authenticated dashboard
   },
 });

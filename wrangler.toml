@@ -5,3 +5,7 @@ main = "./worker/index.ts"
 [assets]
 directory = "./dist/"
 not_found_handling = "single-page-application"
+
+[[kv_namespaces]]
+binding = "KV"
+id = "9011312a976949d5a80df8947a2df13f"
