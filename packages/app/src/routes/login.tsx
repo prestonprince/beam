@@ -1,26 +1,20 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 import { LoginForm } from "@/components/login-form";
 import { useAuth } from "@/AuthContext";
 
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
+  beforeLoad: ({ context }) => {
+    if (context.auth.user) {
+      throw redirect({
+        to: "/dashboard",
+      });
+    }
+  },
 });
 
 function RouteComponent() {
   const auth = useAuth();
-  async function handleGitHubSignIn(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    await auth.login();
-
-    // const clientID = import.meta.env.VITE_GITHUB_CLIENT_ID;
-    // const redirectURI = import.meta.env.VITE_GITHUB_REDIRECT_URI;
-
-    // const state = window.crypto.randomUUID();
-    // localStorage.setItem("latestCSRFToken", state);
-
-    // const link = `https://github.com/login/oauth/authorize?client_id=${clientID}&response_type=code&scope=repo&redirect_uri=${redirectURI}&state=${state}`;
-    // window.location.assign(link);
-  }
 
   return (
     <div className="grid min-h-svh lg:grid-cols-2">
@@ -32,7 +26,12 @@ function RouteComponent() {
         </div>
         <div className="flex flex-1 items-center justify-center">
           <div className="w-full max-w-xs">
-            <LoginForm onSubmit={handleGitHubSignIn} />
+            <LoginForm
+              onSubmit={async (e) => {
+                e.preventDefault();
+                await auth.login();
+              }}
+            />
           </div>
         </div>
       </div>

@@ -1,8 +1,0 @@
-name = "beam-auth"
-main = "src/index.ts"
-compatibility_date = "2025-07-12"
-compatibility_flags = ["nodejs_compat"]
-
-[[kv_namespaces]]
-binding = "KV"
-id = "9011312a976949d5a80df8947a2df13f"

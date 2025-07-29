@@ -1,5 +1,6 @@
 {
   "include": ["**/*.ts", "**/*.tsx", "./alchemy.run.ts"],
+  "references": [{ "path": "../api" }],
   "compilerOptions": {
     "target": "ES2022",
     "jsx": "react-jsx",
@@ -27,7 +28,8 @@
     "noUncheckedSideEffectImports": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@beam/api": ["../api/src"]
     }
   }
 }

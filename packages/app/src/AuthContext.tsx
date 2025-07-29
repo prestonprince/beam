@@ -1,150 +1,94 @@
 import {
-  useRef,
   useState,
   type ReactNode,
-  useEffect,
   useContext,
   createContext,
+  useEffect,
 } from "react";
-import { createClient } from "@openauthjs/openauth/client";
+import { client } from "./lib/api";
 
-const client = createClient({
-  clientID: "react",
-  issuer: "http://localhost:8787",
-});
+type CallbackArgs = {
+  state: string;
+  code: string;
+};
 
-const redirect_uri = "http://localhost:5173/loginSuccess";
+type UserInfo = {
+  userId: string;
+  email: string;
+  username: string;
+};
 
-export interface AuthContextType {
-  userId?: string;
-  loaded: boolean;
-  loggedIn: boolean;
-  logout: () => void;
-  login: () => Promise<void>;
-  getToken: () => Promise<string | undefined>;
+function decodeJWT(token: string) {
+  try {
+    const payload = JSON.parse(atob(token.split(".")[1]));
+    return {
+      userId: payload.userId,
+      email: payload.email,
+      username: payload.username,
+    } as UserInfo;
+  } catch {
+    return null;
+  }
 }
+
+export type AuthContextType = {
+  login(): Promise<void>;
+  callback(args: CallbackArgs): Promise<boolean>;
+  user: UserInfo | null;
+};
 
 const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const initializing = useRef(true);
-  const [loaded, setLoaded] = useState(false);
-  const [loggedIn, setLoggedIn] = useState(false);
-  const token = useRef<string | undefined>(undefined);
-  const [userId, setUserId] = useState<string | undefined>();
+  const [user, setUser] = useState<UserInfo | null>(
+    decodeJWT(localStorage.getItem("jwt") || ""),
+  );
 
-  useEffect(() => {
-    const hash = new URLSearchParams(location.search.slice(1));
-    const code = hash.get("code");
-    const state = hash.get("state");
+  const login = async () => {
+    const response = await client.api.auth.github.$get();
+    if (response.ok) {
+      const { stateId, url } = await response.json();
+      localStorage.setItem("stateId", stateId);
+      window.location.href = url;
+    }
+  };
 
-    if (!initializing.current) {
-      return;
+  const callback = async ({ state, code }: CallbackArgs) => {
+    const stateId = localStorage.getItem("stateId");
+    if (!stateId) {
+      return false;
     }
 
-    initializing.current = false;
-
-    if (code && state) {
-      callback(code, state);
-      return;
-    }
-
-    auth();
-  }, []);
-
-  async function auth() {
-    const token = await refreshTokens();
-
-    if (token) {
-      await user();
-    }
-
-    setLoaded(true);
-  }
-
-  async function refreshTokens() {
-    const refresh = localStorage.getItem("refresh");
-    if (!refresh) return;
-    const next = await client.refresh(refresh, {
-      access: token.current,
-    });
-    if (next.err) return;
-    if (!next.tokens) return token.current;
-
-    localStorage.setItem("refresh", next.tokens.refresh);
-    token.current = next.tokens.access;
-
-    return next.tokens.access;
-  }
-
-  async function getToken() {
-    const token = await refreshTokens();
-
-    if (!token) {
-      await login();
-      return;
-    }
-
-    return token;
-  }
-
-  async function login() {
-    const { challenge, url } = await client.authorize(redirect_uri, "code", {
-      provider: "github",
-      pkce: true,
-    });
-    sessionStorage.setItem("challenge", JSON.stringify(challenge));
-    location.href = url;
-  }
-
-  async function callback(code: string, state: string) {
-    const challenge = JSON.parse(sessionStorage.getItem("challenge")!);
-    if (code) {
-      if (state === challenge.state && challenge.verifier) {
-        console.log("CALLING EXCHANGE WITH CODE: ", code);
-        const exchanged = await client.exchange(
-          code!,
-          redirect_uri,
-          challenge.verifier,
-        );
-        if (!exchanged.err) {
-          token.current = exchanged.tokens?.access;
-          localStorage.setItem("refresh", exchanged.tokens.refresh);
-        }
-      }
-      window.location.replace("/");
-    }
-  }
-
-  async function user() {
-    const res = await fetch("http://localhost:3001/", {
-      headers: {
-        Authorization: `Bearer ${token.current}`,
+    const response = await client.api.auth.github.callback.$post({
+      json: {
+        state,
+        code,
+        stateId,
       },
     });
-
-    if (res.ok) {
-      setUserId(await res.text());
-      setLoggedIn(true);
+    if (!response.ok) {
+      return false;
     }
-  }
+    localStorage.removeItem("stateId");
 
-  function logout() {
-    localStorage.removeItem("refresh");
-    token.current = undefined;
+    const { jwt } = await response.json();
+    localStorage.setItem("jwt", jwt);
 
-    window.location.replace("/");
-  }
+    const userInfo = decodeJWT(jwt);
+    if (!userInfo) {
+      return false;
+    }
+    setUser(userInfo);
+
+    return true;
+  };
 
   return (
     <AuthContext.Provider
       value={{
         login,
-        logout,
-        userId,
-        loaded,
-        loggedIn,
-        getToken,
+        callback,
+        user,
       }}
     >
       {children}
