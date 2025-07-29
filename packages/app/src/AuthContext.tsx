@@ -1,10 +1,4 @@
-import {
-  useState,
-  type ReactNode,
-  useContext,
-  createContext,
-  useEffect,
-} from "react";
+import { type ReactNode, useContext, createContext } from "react";
 import { client } from "./lib/api";
 
 type CallbackArgs = {
@@ -34,16 +28,13 @@ function decodeJWT(token: string) {
 export type AuthContextType = {
   login(): Promise<void>;
   callback(args: CallbackArgs): Promise<boolean>;
-  user: UserInfo | null;
+  isAuthenticated(): boolean;
+  getCurrentUser(): UserInfo | null;
 };
 
 const AuthContext = createContext({} as AuthContextType);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [user, setUser] = useState<UserInfo | null>(
-    decodeJWT(localStorage.getItem("jwt") || ""),
-  );
-
   const login = async () => {
     const response = await client.api.auth.github.$get();
     if (response.ok) {
@@ -51,6 +42,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       localStorage.setItem("stateId", stateId);
       window.location.href = url;
     }
+  };
+
+  const isAuthenticated = () => {
+    const jwt = localStorage.getItem("jwt");
+    return jwt ? decodeJWT(jwt) !== null : false;
+  };
+
+  const getCurrentUser = () => {
+    const jwt = localStorage.getItem("jwt");
+    return jwt ? decodeJWT(jwt) : null;
   };
 
   const callback = async ({ state, code }: CallbackArgs) => {
@@ -78,7 +79,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     if (!userInfo) {
       return false;
     }
-    setUser(userInfo);
 
     return true;
   };
@@ -88,7 +88,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       value={{
         login,
         callback,
-        user,
+        isAuthenticated,
+        getCurrentUser,
       }}
     >
       {children}

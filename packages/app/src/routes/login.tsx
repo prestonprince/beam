@@ -5,7 +5,7 @@ import { useAuth } from "@/AuthContext";
 export const Route = createFileRoute("/login")({
   component: RouteComponent,
   beforeLoad: ({ context }) => {
-    if (context.auth.user) {
+    if (context.auth.getCurrentUser()) {
       throw redirect({
         to: "/dashboard",
       });
