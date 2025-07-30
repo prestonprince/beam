@@ -40,6 +40,11 @@ gcloud projects add-iam-policy-binding YOUR_PROJECT_ID \
 # Create and download service account key
 gcloud iam service-accounts keys create key.json \
     --iam-account=github-actions@YOUR_PROJECT_ID.iam.gserviceaccount.com
+
+# Grant Secret Manager access to the Compute Engine default service account
+gcloud projects add-iam-policy-binding beam-467512 \
+    --member="serviceAccount:<SERVICE_ACCOUNT_ID>-compute@developer.gserviceaccount.com" \
+    --role="roles/secretmanager.secretAccessor"
 ```
 
 ### 2. Enable Cloud Build Triggers (Optional)
