@@ -6,7 +6,7 @@ const envSchema = z.object({
 
   GITHUB_CLIENT_ID: z.string(),
   GITHUB_CLIENT_SECRET: z.string(),
-  GITHUB_REDIRECT_URI: z.url(),
+  GITHUB_REDIRECT_URI: z.string(),
 
   // POSTGRES_HOST: z.string(),
   // POSTGRES_PORT: z.string().refine((val) => !isNaN(parseInt(val, 10)), {
