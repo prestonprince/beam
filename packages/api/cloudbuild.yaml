@@ -56,6 +56,20 @@ steps:
         "NODE_ENV=production,GITHUB_CLIENT_ID=$$GITHUB_CLIENT_ID,GITHUB_CLIENT_SECRET=$$GITHUB_CLIENT_SECRET,GITHUB_REDIRECT_URI=$$GITHUB_REDIRECT_URI,JWT_SECRET=$$JWT_SECRET",
       ]
 
+  # Ensure unauthenticated access is allowed
+  - name: "gcr.io/google.com/cloudsdktool/cloud-sdk"
+    entrypoint: gcloud
+    args:
+      [
+        "run",
+        "services",
+        "add-iam-policy-binding",
+        "beam-api",
+        "--region=us-central1",
+        "--member=allUsers",
+        "--role=roles/run.invoker",
+      ]
+
 availableSecrets:
   secretManager:
     - versionName: projects/$PROJECT_ID/secrets/GITHUB_CLIENT_ID/versions/latest
