@@ -6,11 +6,6 @@ import { authRouter } from "./auth/routes";
 import { JWTPayload } from "./lib/types";
 import { logger } from "hono/logger";
 
-const allowedOrigins =
-  env.NODE_ENV === "development"
-    ? "http://localhost:5173"
-    : "https://beamsync.app";
-
 type Variables = {
   jwtPayload: JWTPayload;
 };
@@ -20,7 +15,7 @@ app.use(logger());
 app.use(
   "*",
   cors({
-    origin: allowedOrigins,
+    origin: "*",
   }),
 );
 
