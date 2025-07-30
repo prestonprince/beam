@@ -6,7 +6,7 @@ FROM base AS deps
 COPY package.json bun.lock ./
 COPY packages/api/package.json ./packages/api/
 COPY packages/core/package.json ./packages/core/
-RUN bun install --frozen-lockfile
+RUN bun install
 
 FROM base AS builder
 COPY --from=deps /app/node_modules ./node_modules

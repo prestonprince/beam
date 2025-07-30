@@ -82,7 +82,7 @@ Or use Google Secret Manager for sensitive values:
 The deployment is triggered automatically when:
 
 1. Code is pushed to the `main` branch
-2. Changes are made to files in `packages/api/`, `packages/core/`, `package.json`, or `bun.lockb`
+2. Changes are made to files in `packages/api/`, `packages/core/`, `package.json`, or `bun.lock`
 
 ### Manual Deployment
 

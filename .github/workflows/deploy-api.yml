@@ -7,14 +7,14 @@ on:
       - "packages/api/**"
       - "packages/core/**"
       - "package.json"
-      - "bun.lockb"
+      - "bun.lock"
   pull_request:
     branches: [main]
     paths:
       - "packages/api/**"
       - "packages/core/**"
       - "package.json"
-      - "bun.lockb"
+      - "bun.lock"
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
